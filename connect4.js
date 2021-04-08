@@ -75,7 +75,7 @@ function makeHtmlBoard() {
 
 function findSpotForCol(x) {
   // TODO: write the real version of this, rather than always returning 0
-  for (let y = HEIGHT-1; y>=0; y--) {
+  for (let y = HEIGHT - 1; y >= 0; y--) {
     if (board[y][x] === null) return y;
   }
   return null;
@@ -87,7 +87,7 @@ function placeInTable(y, x) {
   // TODO: make a div and insert into correct table cell
   let piece = document.createElement("div");
   piece.classList.add('piece');
-  if(currPlayer === 1) {
+  if (currPlayer === 1) {
     piece.classList.add('red');
   }
   else {
@@ -128,14 +128,13 @@ function handleClick(evt) {
 
   // check for tie
   // TODO: check if all cells in board are filled; if so call, call endGame
-  let full;
-  for (let i = 0; i < HEIGHT; i++) {
-    full = board[i].every(val => val !== null);
-  }
-  if (full) endGame();
+  let full = board[0].every(function (val) {
+    return val;
+  })
+  if (full) endGame('Draw!');
   // switch players
   // TODO: switch currPlayer 1 <-> 2
-  currPlayer = currPlayer === 1? 2:1;
+  currPlayer = currPlayer === 1 ? 2 : 1;
 }
 
 /** checkForWin: check board cell-by-cell for "does a win start here?" */
@@ -149,9 +148,20 @@ function checkForWin() {
    */
   function _win(cells) {
 
-    // TODO: Check four cells to see if they're all legal & all color of current
+    // TODO: Check four cells to see if they're all legal within bounds of game & all color of current
     // player
-
+    // looped through the cells check if cell[i][0] >0 and < 6
+    for (let i = 0; i < cells.length; i++) {
+      let y = cells[i][0];
+      let x = cells[i][1];
+      console.log(y + ' ' + x);
+      if ((y > HEIGHT - 1 || y < 0) || (x > WIDTH - 1 || x < 0)) {
+        return false;
+      } else if (board[y][x] !== currPlayer) {
+        return false;
+      }
+    }
+    return true;
   }
 
   // using HEIGHT and WIDTH, generate "check list" of coordinates
