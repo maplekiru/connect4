@@ -75,7 +75,10 @@ function makeHtmlBoard() {
 
 function findSpotForCol(x) {
   // TODO: write the real version of this, rather than always returning 0
-  return 0;
+  for (let y = HEIGHT-1; y>=0; y--) {
+    if (board[y][x] === null) return y;
+  }
+  return null;
 }
 
 /** placeInTable: update DOM to place piece into HTML table of board */
@@ -115,7 +118,7 @@ function handleClick(evt) {
 
   // place piece in board and add to HTML table
   // TODO: add line to update in-memory board
-  board[[y][x]] = currPlayer;
+  board[y][x] = currPlayer;
   placeInTable(y, x);
 
   // check for win
