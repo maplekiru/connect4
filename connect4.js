@@ -7,11 +7,11 @@
  * board fills (tie)
  */
 
-var WIDTH = 7;
-var HEIGHT = 6;
+const WIDTH = 7;
+const HEIGHT = 6;
 
-var currPlayer = 1; // active player: 1 or 2
-var board = []; // array of rows, each row is array of cells  (board[y][x])
+let currPlayer = 1; // active player: 1 or 2
+let board = []; // array of rows, each row is array of cells  (board[y][x])
 
 /** makeBoard: create in-JS board structure:
  *    board = array of rows, each row is array of cells  (board[y][x])
@@ -25,16 +25,17 @@ function makeBoard() {
 
 function makeHtmlBoard() {
   // TODO: get "htmlBoard" variable from the item in HTML w/ID of "board"
+  let htmlBoard = document.querySelector('#board');
 
   // TODO: add comment for this code
-  var top = document.createElement("tr");
+  let top = document.createElement("tr");
   top.setAttribute("id", "column-top");
   top.addEventListener("click", handleClick);
 
-  // TODO: add comment for this code
-  for (var x = 0; x < WIDTH; x++) {
+  // Creates a top row where the player will eventually click to insert pieces and appends to HTML board
+  for (let i = 0; i < WIDTH; i++) {
     var headCell = document.createElement("td");
-    headCell.setAttribute("id", x);
+    headCell.setAttribute("id", i);
     top.append(headCell);
   }
   htmlBoard.append(top);
@@ -42,19 +43,22 @@ function makeHtmlBoard() {
   // dynamically creates the main part of html board
   // uses HEIGHT to create table rows
   // uses WIDTH to create table cells for each row
-  for (var y = 0; y < HEIGHT; y++) {
+  for (let y = 0; y < HEIGHT; y++) {
     // TODO: Create a table row element and assign to a "row" variable
-
-    for (var x = 0; x < WIDTH; x++) {
+    let row = document.createElement('tr');
+    for (let x = 0; x < WIDTH; x++) {
       // TODO: Create a table cell element and assign to a "cell" variable
-
+      let cell = document.createElement('td');
       // TODO: add an id, y-x, to the above table cell element
+      cell.setAttribute('id', `${y}-${x}`);
       // you'll use this later, so make sure you use y-x
 
       // TODO: append the table cell to the table row
+      row.append(cell);
 
     }
     // TODO: append the row to the html board
+    htmlBoard.append(row);
 
   }
 }
